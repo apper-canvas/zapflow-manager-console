@@ -659,10 +659,9 @@ const StepConfigForm = ({ step, stepTypes, httpMethods, onUpdate, onCancel }) =>
         <Button type="button" variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-      </div>
+</div>
     </form>
   );
-);
 };
 
 const VisualCanvas = ({ steps, stepTypes, onEditStep, onDeleteStep, onPositionUpdate }) => {
