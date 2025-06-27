@@ -27,12 +27,13 @@ const Workflows = () => {
   const handleZapAction = async (action, zap) => {
     try {
       switch (action) {
-        case 'toggle':
+case 'toggle': {
           await toggleZapStatus(zap.Id);
           const newStatus = zap.status === 'active' ? 'paused' : 'active';
           toast.success(`Zap ${newStatus === 'active' ? 'resumed' : 'paused'} successfully`);
           break;
-        case 'test':
+        }
+        case 'test': {
           const result = await testZap(zap.Id);
           if (result.success) {
             toast.success('Test completed successfully');
@@ -40,6 +41,7 @@ const Workflows = () => {
             toast.error(result.message);
           }
           break;
+        }
         case 'history':
           toast.info('Loading history...');
           break;

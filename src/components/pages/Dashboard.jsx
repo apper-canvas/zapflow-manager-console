@@ -24,7 +24,7 @@ const Dashboard = () => {
         case 'toggle':
           await toggleZapStatus(zap.Id);
           break;
-        case 'test':
+case 'test': {
           const result = await testZap(zap.Id);
           if (result.success) {
             toast.success('Test completed successfully');
@@ -32,6 +32,7 @@ const Dashboard = () => {
             toast.error(result.message);
           }
           break;
+        }
         case 'history':
           toast.info('Loading history...');
           break;
