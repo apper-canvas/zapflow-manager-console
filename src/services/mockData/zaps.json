@@ -1,0 +1,90 @@
+[
+  {
+    "Id": 1,
+    "name": "Gmail to Slack Notifications",
+    "status": "active",
+    "folderId": 1,
+    "apps": ["Gmail", "Slack"],
+    "lastRun": "2024-01-15T10:30:00Z",
+    "errorCount": 0,
+    "successRate": 98,
+    "avgDuration": 2.3
+  },
+  {
+    "Id": 2,
+    "name": "Trello Card to Google Sheets",
+    "status": "error",
+    "folderId": 1,
+    "apps": ["Trello", "Google Sheets"],
+    "lastRun": "2024-01-15T09:15:00Z",
+    "errorCount": 3,
+    "successRate": 92,
+    "avgDuration": 4.7
+  },
+  {
+    "Id": 3,
+    "name": "HubSpot Lead to Salesforce",
+    "status": "active",
+    "folderId": 2,
+    "apps": ["HubSpot", "Salesforce"],
+    "lastRun": "2024-01-15T11:45:00Z",
+    "errorCount": 1,
+    "successRate": 96,
+    "avgDuration": 6.2
+  },
+  {
+    "Id": 4,
+    "name": "Slack Message to Email",
+    "status": "paused",
+    "folderId": 2,
+    "apps": ["Slack", "Gmail"],
+    "lastRun": "2024-01-14T16:20:00Z",
+    "errorCount": 0,
+    "successRate": 100,
+    "avgDuration": 1.8
+  },
+  {
+    "Id": 5,
+    "name": "Calendar Event to Task",
+    "status": "active",
+    "folderId": 3,
+    "apps": ["Google Calendar", "Todoist"],
+    "lastRun": "2024-01-15T12:00:00Z",
+    "errorCount": 0,
+    "successRate": 95,
+    "avgDuration": 3.1
+  },
+  {
+    "Id": 6,
+    "name": "Form Submission to CRM",
+    "status": "error",
+    "folderId": 3,
+    "apps": ["Typeform", "HubSpot"],
+    "lastRun": "2024-01-15T08:30:00Z",
+    "errorCount": 5,
+    "successRate": 87,
+    "avgDuration": 5.4
+  },
+  {
+    "Id": 7,
+    "name": "Invoice to Accounting",
+    "status": "active",
+    "folderId": 1,
+    "apps": ["Stripe", "QuickBooks"],
+    "lastRun": "2024-01-15T11:15:00Z",
+    "errorCount": 0,
+    "successRate": 99,
+    "avgDuration": 7.8
+  },
+  {
+    "Id": 8,
+    "name": "Survey Response Analysis",
+    "status": "active",
+    "folderId": 2,
+    "apps": ["Survey Monkey", "Google Sheets", "Slack"],
+    "lastRun": "2024-01-15T10:45:00Z",
+    "errorCount": 2,
+    "successRate": 93,
+    "avgDuration": 4.2
+  }
+]

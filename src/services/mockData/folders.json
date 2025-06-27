@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "name": "Sales & Marketing",
+    "color": "#EF8354",
+    "zapCount": 3
+  },
+  {
+    "Id": 2,
+    "name": "Customer Support",
+    "color": "#06D6A0",
+    "zapCount": 3
+  },
+  {
+    "Id": 3,
+    "name": "Operations",
+    "color": "#118AB2",
+    "zapCount": 2
+  }
+]

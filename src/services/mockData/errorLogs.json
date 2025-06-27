@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1,
+    "zapId": 2,
+    "timestamp": "2024-01-15T09:15:00Z",
+    "message": "Authentication failed: Invalid API key for Google Sheets",
+    "task": "Create spreadsheet row",
+    "severity": "high"
+  },
+  {
+    "Id": 2,
+    "zapId": 6,
+    "timestamp": "2024-01-15T08:30:00Z",
+    "message": "Rate limit exceeded: HubSpot API requests per minute limit reached",
+    "task": "Create contact",
+    "severity": "medium"
+  },
+  {
+    "Id": 3,
+    "zapId": 2,
+    "timestamp": "2024-01-15T07:45:00Z",
+    "message": "Field mapping error: Required field 'email' is missing from Trello card",
+    "task": "Create spreadsheet row",
+    "severity": "medium"
+  },
+  {
+    "Id": 4,
+    "zapId": 3,
+    "timestamp": "2024-01-14T15:20:00Z",
+    "message": "Connection timeout: Salesforce API did not respond within 30 seconds",
+    "task": "Update lead status",
+    "severity": "low"
+  },
+  {
+    "Id": 5,
+    "zapId": 6,
+    "timestamp": "2024-01-14T14:10:00Z",
+    "message": "Data validation error: Invalid email format in form submission",
+    "task": "Create contact",
+    "severity": "medium"
+  },
+  {
+    "Id": 6,
+    "zapId": 8,
+    "timestamp": "2024-01-14T12:30:00Z",
+    "message": "Permission denied: Insufficient privileges to access Google Sheets document",
+    "task": "Update spreadsheet",
+    "severity": "high"
+  },
+  {
+    "Id": 7,
+    "zapId": 2,
+    "timestamp": "2024-01-14T10:15:00Z",
+    "message": "Service unavailable: Trello API is temporarily down",
+    "task": "Get card details",
+    "severity": "high"
+  },
+  {
+    "Id": 8,
+    "zapId": 6,
+    "timestamp": "2024-01-14T09:05:00Z",
+    "message": "Duplicate entry: Contact with this email already exists in HubSpot",
+    "task": "Create contact",
+    "severity": "low"
+  }
+]
