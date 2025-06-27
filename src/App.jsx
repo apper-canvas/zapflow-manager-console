@@ -5,10 +5,10 @@ import Sidebar from '@/components/organisms/Sidebar';
 import Header from '@/components/organisms/Header';
 import Dashboard from '@/components/pages/Dashboard';
 import Workflows from '@/components/pages/Workflows';
+import WorkflowEditor from '@/components/pages/WorkflowEditor';
 import Errors from '@/components/pages/Errors';
 import Performance from '@/components/pages/Performance';
 import Settings from '@/components/pages/Settings';
-
 function App() {
   return (
     <Router>
@@ -17,9 +17,11 @@ function App() {
         <div className="flex-1 flex flex-col overflow-hidden">
           <Header />
           <main className="flex-1 overflow-auto">
-            <Routes>
+<Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/workflows" element={<Workflows />} />
+              <Route path="/workflows/editor" element={<WorkflowEditor />} />
+              <Route path="/workflows/editor/:id" element={<WorkflowEditor />} />
               <Route path="/errors" element={<Errors />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/settings" element={<Settings />} />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useZaps } from '@/hooks/useZaps';
 import { useFolders } from '@/hooks/useFolders';
 import ZapList from '@/components/organisms/ZapList';
@@ -10,8 +11,8 @@ import Empty from '@/components/ui/Empty';
 import Button from '@/components/atoms/Button';
 import ViewToggle from '@/components/molecules/ViewToggle';
 import { toast } from 'react-toastify';
-
 const Workflows = () => {
+  const navigate = useNavigate();
   const [view, setView] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
@@ -23,7 +24,6 @@ const Workflows = () => {
 
   const { zaps, loading, error, refetch, toggleZapStatus, testZap } = useZaps(filters);
   const { folders } = useFolders();
-
   const handleZapAction = async (action, zap) => {
     try {
       switch (action) {
@@ -42,11 +42,11 @@ case 'toggle': {
           }
           break;
         }
-        case 'history':
+case 'history':
           toast.info('Loading history...');
           break;
         case 'edit':
-          toast.info('Opening editor...');
+          navigate(`/workflows/editor/${zap.Id}`);
           break;
         default:
           break;
@@ -136,13 +136,13 @@ case 'toggle': {
             >
               <span className="hidden sm:inline">Export</span>
             </Button>
-            <Button
+<Button
               variant="primary"
               icon="Plus"
               size="sm"
-              onClick={() => toast.info('Create zap...')}
+              onClick={() => navigate('/workflows/editor')}
             >
-              <span className="hidden sm:inline">New Zap</span>
+              <span className="hidden sm:inline">New Workflow</span>
             </Button>
           </div>
         </div>
@@ -186,11 +186,11 @@ case 'toggle': {
         <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
           {zaps.length === 0 ? (
             <Empty
-              title="No workflows found"
-              message="Create your first Zap or adjust your filters to see workflows."
-              actionLabel="Create New Zap"
+title="No workflows found"
+              message="Create your first workflow or adjust your filters to see workflows."
+              actionLabel="Create New Workflow"
               icon="GitBranch"
-              action={() => toast.info('Create zap...')}
+              action={() => navigate('/workflows/editor')}
             />
           ) : (
             <ZapList

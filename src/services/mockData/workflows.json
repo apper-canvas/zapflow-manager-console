@@ -1,0 +1,314 @@
+[
+  {
+    "Id": 1,
+    "name": "Daily Data Sync",
+    "description": "Synchronize user data between CRM and email marketing platform",
+    "status": "active",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-20T14:22:00Z",
+    "version": 3,
+    "runs": 156,
+    "lastRun": "2024-01-21T09:00:00Z",
+    "steps": [
+      {
+        "Id": 1,
+        "type": "trigger",
+        "name": "Daily Schedule",
+        "description": "Trigger at 9 AM every day",
+        "config": {
+          "schedule": "0 9 * * *",
+          "timezone": "UTC"
+        }
+      },
+      {
+        "Id": 2,
+        "type": "api_call",
+        "name": "Fetch CRM Users",
+        "description": "Get updated user data from CRM",
+        "config": {
+          "method": "GET",
+          "url": "https://api.crm.example.com/users",
+          "headers": {
+            "Authorization": "Bearer {{crm_token}}",
+            "Content-Type": "application/json"
+          }
+        }
+      },
+      {
+        "Id": 3,
+        "type": "condition",
+        "name": "Check Data Available",
+        "description": "Verify we received user data",
+        "config": {
+          "variable": "response.data.length",
+          "operator": "greater_than",
+          "value": "0"
+        }
+      },
+      {
+        "Id": 4,
+        "type": "action",
+        "name": "Transform Data",
+        "description": "Convert CRM format to email platform format",
+        "config": {
+          "transformer": "crm_to_email_format",
+          "mapping": {
+            "email": "email_address",
+            "name": "full_name",
+            "company": "organization"
+          }
+        }
+      },
+      {
+        "Id": 5,
+        "type": "api_call",
+        "name": "Update Email Platform",
+        "description": "Sync users to email marketing platform",
+        "config": {
+          "method": "POST",
+          "url": "https://api.emailplatform.com/contacts/bulk",
+          "headers": {
+            "Authorization": "Bearer {{email_token}}",
+            "Content-Type": "application/json"
+          },
+          "body": "{{transformed_data}}"
+        }
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "name": "Order Processing Pipeline",
+    "description": "Process new orders from e-commerce platform",
+    "status": "active",
+    "createdAt": "2024-01-10T16:45:00Z",
+    "updatedAt": "2024-01-21T11:15:00Z",
+    "version": 7,
+    "runs": 342,
+    "lastRun": "2024-01-21T10:45:00Z",
+    "steps": [
+      {
+        "Id": 1,
+        "type": "trigger",
+        "name": "New Order Webhook",
+        "description": "Triggered when new order is placed",
+        "config": {
+          "webhook_url": "/webhooks/new-order",
+          "method": "POST"
+        }
+      },
+      {
+        "Id": 2,
+        "type": "condition",
+        "name": "Validate Order",
+        "description": "Check if order has required fields",
+        "config": {
+          "variable": "order.total",
+          "operator": "greater_than",
+          "value": "0"
+        }
+      },
+      {
+        "Id": 3,
+        "type": "api_call",
+        "name": "Check Inventory",
+        "description": "Verify product availability",
+        "config": {
+          "method": "POST",
+          "url": "https://inventory.example.com/check",
+          "headers": {
+            "Authorization": "Bearer {{inventory_token}}"
+          },
+          "body": "{\"products\": {{order.items}}}"
+        }
+      },
+      {
+        "Id": 4,
+        "type": "condition",
+        "name": "Items Available",
+        "description": "Check if all items are in stock",
+        "config": {
+          "variable": "inventory_response.all_available",
+          "operator": "equals",
+          "value": "true"
+        }
+      },
+      {
+        "Id": 5,
+        "type": "api_call",
+        "name": "Process Payment",
+        "description": "Charge customer payment method",
+        "config": {
+          "method": "POST",
+          "url": "https://payments.example.com/charge",
+          "headers": {
+            "Authorization": "Bearer {{payment_token}}"
+          },
+          "body": "{\"amount\": {{order.total}}, \"payment_method\": {{order.payment_method}}}"
+        }
+      },
+      {
+        "Id": 6,
+        "type": "api_call",
+        "name": "Send Confirmation",
+        "description": "Email order confirmation to customer",
+        "config": {
+          "method": "POST",
+          "url": "https://email.example.com/send",
+          "headers": {
+            "Authorization": "Bearer {{email_token}}"
+          },
+          "body": "{\"to\": {{order.customer_email}}, \"template\": \"order_confirmation\", \"data\": {{order}}}"
+        }
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "name": "Lead Scoring Automation",
+    "description": "Score and route leads based on activity and profile data",
+    "status": "paused",
+    "createdAt": "2024-01-08T09:20:00Z",
+    "updatedAt": "2024-01-19T13:30:00Z",
+    "version": 2,
+    "runs": 89,
+    "lastRun": "2024-01-19T12:00:00Z",
+    "steps": [
+      {
+        "Id": 1,
+        "type": "trigger",
+        "name": "Lead Activity",
+        "description": "Triggered when lead performs tracked action",
+        "config": {
+          "events": ["page_view", "form_submit", "email_click"],
+          "source": "tracking_api"
+        }
+      },
+      {
+        "Id": 2,
+        "type": "api_call",
+        "name": "Get Lead Profile",
+        "description": "Fetch complete lead information",
+        "config": {
+          "method": "GET",
+          "url": "https://api.crm.example.com/leads/{{lead_id}}",
+          "headers": {
+            "Authorization": "Bearer {{crm_token}}"
+          }
+        }
+      },
+      {
+        "Id": 3,
+        "type": "action",
+        "name": "Calculate Score",
+        "description": "Run lead scoring algorithm",
+        "config": {
+          "scoring_rules": {
+            "company_size": {"enterprise": 25, "mid_market": 15, "small": 5},
+            "job_title": {"ceo": 20, "vp": 15, "manager": 10, "individual": 5},
+            "activity_points": {"form_submit": 10, "page_view": 2, "email_click": 5}
+          }
+        }
+      },
+      {
+        "Id": 4,
+        "type": "condition",
+        "name": "High Score Lead",
+        "description": "Check if lead score is above threshold",
+        "config": {
+          "variable": "calculated_score",
+          "operator": "greater_than",
+          "value": "50"
+        }
+      },
+      {
+        "Id": 5,
+        "type": "api_call",
+        "name": "Assign to Sales",
+        "description": "Create task for sales team",
+        "config": {
+          "method": "POST",
+          "url": "https://api.crm.example.com/tasks",
+          "headers": {
+            "Authorization": "Bearer {{crm_token}}"
+          },
+          "body": "{\"lead_id\": {{lead_id}}, \"type\": \"sales_follow_up\", \"priority\": \"high\", \"score\": {{calculated_score}}}"
+        }
+      },
+      {
+        "Id": 6,
+        "type": "delay",
+        "name": "Wait Period",
+        "description": "Wait before sending notification",
+        "config": {
+          "duration": 300
+        }
+      },
+      {
+        "Id": 7,
+        "type": "api_call",
+        "name": "Notify Sales Rep",
+        "description": "Send notification to assigned sales rep",
+        "config": {
+          "method": "POST",
+          "url": "https://notifications.example.com/send",
+          "headers": {
+            "Authorization": "Bearer {{notification_token}}"
+          },
+          "body": "{\"recipient\": {{assigned_rep}}, \"message\": \"High-score lead assigned: {{lead.name}} (Score: {{calculated_score}})\"}"
+        }
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "name": "Customer Onboarding",
+    "description": "Automate new customer onboarding process",
+    "status": "draft",
+    "createdAt": "2024-01-21T08:15:00Z",
+    "updatedAt": "2024-01-21T08:15:00Z",
+    "version": 1,
+    "runs": 0,
+    "lastRun": null,
+    "steps": [
+      {
+        "Id": 1,
+        "type": "trigger",
+        "name": "New Customer Signup",
+        "description": "Triggered when customer completes signup",
+        "config": {
+          "webhook_url": "/webhooks/customer-signup",
+          "method": "POST"
+        }
+      },
+      {
+        "Id": 2,
+        "type": "api_call",
+        "name": "Create User Account",
+        "description": "Set up user account in main system",
+        "config": {
+          "method": "POST",
+          "url": "https://api.platform.example.com/users",
+          "headers": {
+            "Authorization": "Bearer {{platform_token}}"
+          },
+          "body": "{\"email\": {{customer.email}}, \"name\": {{customer.name}}, \"plan\": {{customer.plan}}}"
+        }
+      },
+      {
+        "Id": 3,
+        "type": "api_call",
+        "name": "Send Welcome Email",
+        "description": "Send personalized welcome email",
+        "config": {
+          "method": "POST",
+          "url": "https://email.example.com/send",
+          "headers": {
+            "Authorization": "Bearer {{email_token}}"
+          },
+          "body": "{\"to\": {{customer.email}}, \"template\": \"welcome_series_1\", \"data\": {{customer}}}"
+        }
+      }
+    ]
+  }
+]
