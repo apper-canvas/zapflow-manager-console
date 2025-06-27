@@ -487,10 +487,11 @@ const handleDragStart = (e, step) => {
           )}
         </AnimatePresence>
       </div>
-    </div>
+</div>
   );
 };
 
+export default WorkflowEditor;
 const StepConfigForm = ({ step, stepTypes, httpMethods, onUpdate, onCancel }) => {
   const [formData, setFormData] = useState(step);
 
