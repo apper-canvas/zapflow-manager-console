@@ -138,7 +138,7 @@ export const workflowService = {
           };
           break;
 
-        case 'condition':
+case 'condition': {
           // Simulate condition evaluation
           const conditionMet = Math.random() > 0.3; // 70% success rate
           result = {
@@ -148,12 +148,14 @@ export const workflowService = {
             operator: step.config.operator
           };
           break;
+        }
 
-        case 'delay':
+        case 'delay': {
           const duration = step.config.duration || 1;
           await delay(Math.min(duration * 1000, 2000)); // Cap at 2 seconds for demo
           result = { delayed: duration, unit: 'seconds' };
           break;
+        }
 
         case 'action':
           await delay(100 + Math.random() * 200);
